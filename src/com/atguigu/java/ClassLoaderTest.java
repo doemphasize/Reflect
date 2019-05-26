@@ -3,6 +3,7 @@ package com.atguigu.java;
 import org.junit.Test;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -24,11 +25,16 @@ public class ClassLoaderTest {
     }
 @Test
     public void test2() throws Exception{
-        Properties p = new Properties();
-        FileInputStream inputStream = new FileInputStream("day01reflect\\jdbc.properties");
-        p.load(inputStream);
+//        读取方式一：
+    Properties p = new Properties();
+//        FileInputStream inputStream = new FileInputStream("day01reflect\\jdbc.properties");
+//        p.load(inputStream);
+        ClassLoader classLoader = ClassLoaderTest.class.getClassLoader();
+        InputStream p1 = classLoader.getResourceAsStream("jdbc1.properties");
+        p.load(p1);
 
-        String user=p.getProperty("user");
+
+    String user=p.getProperty("user");
         String password=p.getProperty("password");
         System.out.println("用户:"+user+"密码："+password);
     }
